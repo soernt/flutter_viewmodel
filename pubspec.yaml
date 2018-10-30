@@ -1,6 +1,6 @@
 name: flutter_view_model
 description: A view model framework inspired by Microsofts INotifyPropertyChanged interface.
-version: 0.1.1
+version: 0.1.2
 author: Sörnt Poppe <soernt.poppe@nordlichtsoftware.de>
 homepage: https://github.com/soernt/flutter_viewmodel
 

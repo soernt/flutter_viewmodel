@@ -1,4 +1,4 @@
-# view_model
+# flutter_view_model
 
 [![pub package](https://img.shields.io/pub/v/flutter_view_model.svg)](https://pub.dartlang.org/packages/flutter_view_model)
 
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  view_model: <current version>
+  flutter_view_model: <current version>
 ...
 ```
 
@@ -22,7 +22,7 @@ dependencies:
 A basic view model:
 ```dart
 // Import the packages.
-import 'package:view_model/view_model_lib.dart';
+import 'package:flutter_view_model/flutter_view_model.dart';
 
 // 1. Create a ViewModel
 class PersonViewModel extends ViewModel {
