@@ -1,3 +1,7 @@
+## [0.1.2]
+
+* Readme corrections.
+
 ## [0.1.1]
 
 * Readme corrections.
