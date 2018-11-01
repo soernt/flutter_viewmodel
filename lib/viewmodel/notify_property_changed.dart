@@ -16,6 +16,11 @@ class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
   final PublishSubject<PropertyChangedEvent> propertyChanged =
       PublishSubject<PropertyChangedEvent>();
 
+  @override
+  bool isPausingSendNotifications;
+
+  // Methods
+
   /// Closes propertyChanged notifications
   @mustCallSuper
   @override
@@ -44,7 +49,9 @@ class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
   /// Publishes a PropertyChangedEvent with the given propertyName parameter.
   @protected
   void notifyPropertyChanged(String propertyName) {
-    propertyChanged.add(PropertyChangedEvent(this, propertyName));
+    if (!isPausingSendNotifications) {
+      propertyChanged.add(PropertyChangedEvent(this, propertyName));
+    }
   }
 
   /// Publishes a PropertyChangedEvent indicating that all properties have changed.

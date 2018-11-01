@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
-import 'inavigator_provider.dart';
 
 import '../translations/itext_provider.dart';
-import 'ibuild_context_provider.dart';
 import 'iapp_navigator.dart';
+import 'ibuild_context_provider.dart';
+import 'inavigator_provider.dart';
 
 /// AppNavigator provides navigation capabilities for a view model
 /// This class should be extendend of app specific pages navigation functions.
 class AppNavigator implements IAppNavigator {
   // Properties
-  final ITextProvider _textProvider;
-  final IBuildContextProvider _buildContextProvider;
-  final INavigatorProvider _navigatorProvider;
 
-  NavigatorState get _navigator => _navigatorProvider.navigator;
+  /// Provider of the Navigator
+  final INavigatorProvider _navigatorProvider;
+  @protected
+  NavigatorState get navigator => _navigatorProvider.navigator;
+
+  /// Provides text translations
+  @protected
+  final ITextProvider textProvider;
+
+  /// Provides a buildContext that is within the current Page
+  @protected
+  final IBuildContextProvider buildContextProvider;
 
   AppNavigator(
       ITextProvider textProvider,
@@ -22,13 +30,13 @@ class AppNavigator implements IAppNavigator {
       : assert(textProvider != null),
         assert(buildContextProvider != null),
         assert(navigatorProvider != null),
-        _textProvider = textProvider,
-        _buildContextProvider = buildContextProvider,
+        textProvider = textProvider,
+        buildContextProvider = buildContextProvider,
         _navigatorProvider = navigatorProvider;
 
   Future<void> showInfoDialog(String title, String message) {
     return showDialog(
-        context: _buildContextProvider.buildContext,
+        context: buildContextProvider.buildContext,
         barrierDismissible: false,
         builder: (_) => new AlertDialog(
               title: Text(title),
@@ -44,9 +52,9 @@ class AppNavigator implements IAppNavigator {
       switch (buttonTypes[i]) {
         case ButtonTypes.ok:
           btn = FlatButton(
-              child: Text(_textProvider.buttonTypeTextProvider
+              child: Text(textProvider.buttonTypeTextProvider
                   .getButtonText(ButtonTypes.ok)),
-              onPressed: () => _navigator.pop(ButtonTypes.ok));
+              onPressed: () => navigator.pop(ButtonTypes.ok));
           break;
         default:
           throw ArgumentError("${buttonTypes[i].toString()} is not handled.");
@@ -57,6 +65,6 @@ class AppNavigator implements IAppNavigator {
   }
 
   bool pop<T extends Object>([T result]) {
-    return _navigator.pop();
+    return navigator.pop();
   }
 }
