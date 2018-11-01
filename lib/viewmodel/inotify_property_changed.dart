@@ -15,8 +15,14 @@ class PropertyChangedEvent {
 
 /// Notifies clients that a property value has changed and privides some conveniences subsribtion functions.
 abstract class INotifyPropertyChanged {
+  // Properties
   /// Occurs when a property value changes.
   PublishSubject<PropertyChangedEvent> get propertyChanged;
+
+  /// Stop/resume sending notifications
+  bool isPausingSendNotifications;
+
+  // Methods
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever the given propertyName indicates a change.
   /// When the propertyName is empty (null or length == 0), than the oberservale gets notified by any changes of the ViewModel

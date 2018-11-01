@@ -5,6 +5,7 @@ abstract class IAppNavigator {
 
   // Methods
 
+  /// Shows a Dialog with an OK button
   Future<void> showInfoDialog(String title, String message);
 
   bool pop<T extends Object>([T result]);
