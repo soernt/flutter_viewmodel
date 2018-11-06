@@ -14,7 +14,7 @@ abstract class ITextProvider {
 abstract class IExceptionDialogTextProvider {
   String get exceptionDialogTitle;
 
-  String translateException(Exception e);
+  String translateExceptionOrError(Object exceptionOrError);
 }
 
 abstract class IButtonTypeTextProvider {

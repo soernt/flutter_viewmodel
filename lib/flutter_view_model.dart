@@ -9,6 +9,12 @@ export 'viewmodel/view_model_provider.dart';
 export 'viewmodel/observable_list.dart';
 
 export 'widgets/view_model_property_widget_builder.dart';
+export 'widgets/animated_observable_list.dart';
+export 'widgets/progress_barrier/progress_barrier_widget.dart';
+export 'widgets/progress_barrier/command_progress_barrier_widget.dart';
+
+export 'services/busy_indicator.dart';
+export 'widgets/progress_barrier/busy_indicator_widget.dart';
 
 export 'services/navigation/app_navigator.dart';
 export 'services/navigation/iapp_navigator.dart';
