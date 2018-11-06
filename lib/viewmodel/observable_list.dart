@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 
 import '../idisposable.dart';
 import 'inotify_property_changed.dart';
@@ -10,12 +11,49 @@ import 'notify_property_changed.dart';
 typedef Transformer<TItem, TTransformedItem> = TTransformedItem Function(
     TItem item);
 
+abstract class ItemAddedOrRemovedEvent extends PropertyChangedEvent {
+  // Properties
+
+  /// The item that has been added or removed
+  final Object item;
+
+  // The index of the item property;
+  final int index;
+
+  // Methods
+  ItemAddedOrRemovedEvent(
+      Object sender, String propertyName, this.item, this.index)
+      : assert(item != null),
+        assert(index != null && index >= 0),
+        super(sender, propertyName);
+}
+
+class ItemAddedEvent extends ItemAddedOrRemovedEvent {
+  // Properties
+  static const String operationName = "add";
+
+  // Methods
+  ItemAddedEvent(Object sender, Object item, int index)
+      : super(sender, operationName, item, index);
+}
+
+class ItemRemovedEvent extends ItemAddedOrRemovedEvent {
+  // Properties
+  static const String operationName = "remove";
+
+  // Methods
+  ItemRemovedEvent(Object sender, Object item, int index)
+      : super(sender, operationName, item, index);
+}
+
 /// When ever the list changes a notification is send.
 class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChanged {
   // Properties
+  /// Property name to indicate that something has been changed;
+  static const String itemsChangedPropertyName = "items";
+
   final List<E> _internal;
   final bool _disposeItems;
-  bool _suppressChangeNotification = false;
 
   @override
   set first(E value) =>
@@ -63,41 +101,40 @@ class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChanged {
 
   bool _updateValue<TPropertyType>(TPropertyType currentValue,
       TPropertyType newValue, SetValue<TPropertyType> setNewValue) {
-    return updateValue("", currentValue, newValue, setNewValue);
+    return updateValue(
+        itemsChangedPropertyName, currentValue, newValue, setNewValue);
   }
 
-  void _notifyPropertyChanged() {
-    notifyPropertyChanged("");
+  void notifyItemsChanged() {
+    notifyPropertyChanged(itemsChangedPropertyName);
   }
 
-  @override
-  void notifyPropertyChanged(String propertyName) {
-    if (_suppressChangeNotification) {
-      return;
-    }
-    propertyChanged.add(PropertyChangedEvent(this, propertyName));
+  @protected
+  void _notifyItemAdded(E item) {
+    sendNotification(ItemAddedEvent(this, item, indexOf(item)));
+  }
+
+  @protected
+  void _notifyItemRemoved(E item, int index) {
+    sendNotification(ItemRemovedEvent(this, item, index));
   }
 
   @override
   void add(E value) {
     _internal.add(value);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
+    _notifyItemAdded(value);
   }
 
   @override
   void addAll(Iterable<E> iterable) {
     _internal.addAll(iterable);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   void addTransformed<TItem>(
       Iterable<TItem> iterable, Transformer<TItem, E> transformer) {
-    _suppressChangeNotification = true;
-    try {
-      iterable.forEach((item) => add(transformer(item)));
-    } finally {
-      _suppressChangeNotification = false;
-    }
+    iterable.forEach((item) => add(transformer(item)));
   }
 
   @override
@@ -106,93 +143,105 @@ class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChanged {
       _internal.forEach((item) => disposeItem(item));
     }
     _internal.clear();
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void fillRange(int start, int end, [E fillValue]) {
     _internal.fillRange(start, end, fillValue);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void insert(int index, E element) {
     _internal.insert(index, element);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
+    _notifyItemAdded(element);
   }
 
   @override
   void insertAll(int index, Iterable<E> iterable) {
     _internal.insertAll(index, iterable);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   bool remove(Object value) {
-    var result = _internal.remove(value);
-    _notifyPropertyChanged();
+    final idx = _internal.indexOf(value);
+    final result = _internal.remove(value);
+    notifyItemsChanged();
+    _notifyItemRemoved(value, idx);
     return result;
   }
 
   @override
   E removeAt(int index) {
     var result = _internal.removeAt(index);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
+    _notifyItemRemoved(result, index);
     return result;
   }
 
   @override
   E removeLast() {
-    var result = _internal.removeLast();
-    _notifyPropertyChanged();
+    final lastIdx = length - 1;
+    final result = _internal.removeLast();
+    notifyItemsChanged();
+    _notifyItemRemoved(result, lastIdx);
     return result;
   }
 
   @override
   void removeRange(int start, int end) {
     _internal.removeRange(start, end);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void removeWhere(bool Function(E element) test) {
-    _internal.removeWhere(test);
-    _notifyPropertyChanged();
+    for (int i = length - 1; 0 <= i; i--) {
+      final item = this[i];
+      if (test(item)) {
+        _internal.removeAt(i);
+        _notifyItemRemoved(item, i);
+      }
+    }
+    notifyItemsChanged();
   }
 
   @override
   void replaceRange(int start, int end, Iterable<E> replacement) {
     _internal.replaceRange(start, end, replacement);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void retainWhere(bool Function(E element) test) {
     _internal.retainWhere(test);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void setAll(int index, Iterable<E> iterable) {
     _internal.setAll(index, iterable);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void setRange(int start, int end, Iterable<E> iterable, [int skipCount = 0]) {
     _internal.setRange(start, end, iterable);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void shuffle([Random random]) {
     _internal.shuffle(random);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 
   @override
   void sort([int Function(E a, E b) compare]) {
     _internal.sort(compare);
-    _notifyPropertyChanged();
+    notifyItemsChanged();
   }
 }

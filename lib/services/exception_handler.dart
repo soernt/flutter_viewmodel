@@ -28,8 +28,8 @@ class ExceptionHandler implements IExceptionHandler {
 
   Future<void> _displayExceptions() async {
     while (_exceptions.isNotEmpty) {
-      final ex = _exceptions.removeFirst();
-      final message = _textProvider.translateException(ex);
+      final exeptionOrError = _exceptions.removeFirst();
+      final message = _textProvider.translateExceptionOrError(exeptionOrError);
       await _navigator.showInfoDialog(
           _textProvider.exceptionDialogTitle, message);
     }

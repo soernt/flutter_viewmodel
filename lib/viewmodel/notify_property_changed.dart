@@ -9,6 +9,8 @@ import 'inotify_property_changed.dart';
 
 typedef SetValue<TValue> = void Function(TValue value);
 
+typedef Action = void Function();
+
 /// Implementation of the INotifyPropertyChanged and IDisposable interface.
 class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
   // Properites
@@ -17,7 +19,7 @@ class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
       PublishSubject<PropertyChangedEvent>();
 
   @override
-  bool isPausingSendNotifications;
+  bool isPausingSendNotifications = false;
 
   // Methods
 
@@ -46,18 +48,33 @@ class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
     return true;
   }
 
+  void doWhileStopNotification(Action action) {
+    assert(action != null);
+    isPausingSendNotifications = true;
+    try {
+      action();
+    } finally {
+      isPausingSendNotifications = false;
+    }
+  }
+
+  @protected
+  sendNotification(PropertyChangedEvent event) {
+    if (!isPausingSendNotifications) {
+      propertyChanged.add(event);
+    }
+  }
+
   /// Publishes a PropertyChangedEvent with the given propertyName parameter.
   @protected
   void notifyPropertyChanged(String propertyName) {
-    if (!isPausingSendNotifications) {
-      propertyChanged.add(PropertyChangedEvent(this, propertyName));
-    }
+    sendNotification(PropertyChangedEvent(this, propertyName));
   }
 
   /// Publishes a PropertyChangedEvent indicating that all properties have changed.
   @protected
   void notifyAllPropertiesChanged() {
-    propertyChanged.add(PropertyChangedEvent(this, ""));
+    notifyPropertyChanged("");
   }
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever the given propertyName indicates a change.
