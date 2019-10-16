@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../viewmodel/inotify_property_changed.dart';
+import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
 
 /// Rebuilds a widget (via the given builder function) whenever the given property (propertyName) changes.
 /// Example:

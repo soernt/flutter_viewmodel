@@ -1,4 +1,4 @@
-import '../utils/string_utils.dart';
+import 'package:flutter_view_model/utils/string_utils.dart';
 
 class Subscription {
   // Properties

@@ -1,8 +1,9 @@
-import 'inotify_property_changed.dart';
-import 'notify_property_changed.dart';
+import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
+import 'package:flutter_view_model/viewmodel/notify_property_changed_mixin.dart';
 
 /// A ViewModel
-abstract class ViewModel extends NotifyPropertyChanged
+abstract class ViewModel
+    with NotifyPropertyChangedMixin
     implements INotifyPropertyChanged {
   // Properties
 

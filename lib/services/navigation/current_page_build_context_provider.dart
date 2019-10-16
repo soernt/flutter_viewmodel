@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-import 'ibuild_context_provider.dart';
-import 'page_root_widget.dart';
+import 'package:flutter_view_model/services/navigation/ibuild_context_provider.dart';
+import 'package:flutter_view_model/services/navigation/page_root_widget.dart';
 
 /// Provides a BuildContext for the currently displayed page.
 /// Usage:

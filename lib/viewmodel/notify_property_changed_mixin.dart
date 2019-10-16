@@ -3,29 +3,28 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../idisposable.dart';
-import '../utils/string_utils.dart';
-import 'inotify_property_changed.dart';
+import 'package:flutter_view_model/idisposable.dart';
+import 'package:flutter_view_model/utils/string_utils.dart';
+import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
 
 typedef SetValue<TValue> = void Function(TValue value);
 
 typedef Action = void Function();
 
 /// Implementation of the INotifyPropertyChanged and IDisposable interface.
-class NotifyPropertyChanged implements INotifyPropertyChanged, IDisposable {
+mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable {
   // Properites
-  @override
+  
   final PublishSubject<PropertyChangedEvent> propertyChanged =
       PublishSubject<PropertyChangedEvent>();
 
-  @override
+  
   bool isPausingSendNotifications = false;
 
   // Methods
 
   /// Closes propertyChanged notifications
   @mustCallSuper
-  @override
   void dispose() {
     propertyChanged.close();
   }

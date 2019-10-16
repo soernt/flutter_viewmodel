@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'iexception_handler.dart';
-import 'navigation/iapp_navigator.dart';
-import 'translations/itext_provider.dart';
+import 'package:flutter_view_model/services/iexception_handler.dart';
+import 'package:flutter_view_model/services/navigation/iapp_navigator.dart';
+import 'package:flutter_view_model/services/translations/itext_provider.dart';
 
 /// Displays an exception dialog.
 class ExceptionHandler implements IExceptionHandler {

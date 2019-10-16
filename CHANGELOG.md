@@ -1,3 +1,8 @@
+## [0.1.17]
+Update dependencies   
+Update flutter SDK   
+Changed NotifyPropertyChanged from class to Mixin.
+
 ## [0.1.15]
 ProgressBarrierWidget: Added "initialIsInProgress" to get the initial state of the widget.
 

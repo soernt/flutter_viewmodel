@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'string_utils.dart';
+import 'package:flutter_view_model/utils/string_utils.dart';
 
 /// Decodes a JWT Token into the content property
 class JwtDecoder {

@@ -3,7 +3,7 @@ library flutter_view_model;
 export 'idisposable.dart';
 
 export 'viewmodel/inotify_property_changed.dart';
-export 'viewmodel/notify_property_changed.dart';
+export 'viewmodel/notify_property_changed_mixin.dart';
 export 'viewmodel/view_model.dart';
 export 'viewmodel/view_model_provider.dart';
 export 'viewmodel/observable_list.dart';

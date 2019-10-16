@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-import 'view_model.dart';
+import 'package:flutter_view_model/viewmodel/view_model.dart';
 
 /// Provides access to a ViewModel.
 abstract class ViewModelProvider<TViewModel extends ViewModel>
@@ -8,6 +7,7 @@ abstract class ViewModelProvider<TViewModel extends ViewModel>
   // Properties
 
   final TViewModel viewModel;
+
   // Methods
 
   /// ViewModel is the instance that this Provider should provide.

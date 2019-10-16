@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rx_command/rx_command.dart';
-import 'progress_barrier_widget.dart';
+import 'package:flutter_view_model/widgets/progress_barrier/progress_barrier_widget.dart';
 
 /// Displays a progressContent while the associated command is executing.
 class CommandProgressBarrierWidget extends ProgressBarrierWidget {

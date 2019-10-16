@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'inavigator_provider.dart';
+import 'package:flutter_view_model/services/navigation/inavigator_provider.dart';
 
 /// Get the current NavigatorState. That state will be used to provide a "view model" based navigation".
 class NavigatorProvider implements INavigatorProvider {

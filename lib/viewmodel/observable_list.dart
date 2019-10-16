@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-import '../idisposable.dart';
-import 'inotify_property_changed.dart';
-import 'notify_property_changed.dart';
+import 'package:flutter_view_model/idisposable.dart';
+import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
+import 'package:flutter_view_model/viewmodel/notify_property_changed_mixin.dart';
 
 typedef Transformer<TItem, TTransformedItem> = TTransformedItem Function(
     TItem item);
@@ -47,7 +47,7 @@ class ItemRemovedEvent extends ItemAddedOrRemovedEvent {
 }
 
 /// When ever the list changes a notification is send.
-class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChanged {
+class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChangedMixin {
   // Properties
   /// Property name to indicate that something has been changed;
   static const String itemsChangedPropertyName = "items";

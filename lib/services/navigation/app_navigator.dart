@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show AlertDialog, FlatButton, NavigatorState, Text, Widget, protected, showDialog;
 
-import '../translations/itext_provider.dart';
-import 'iapp_navigator.dart';
-import 'ibuild_context_provider.dart';
-import 'inavigator_provider.dart';
+import 'package:flutter_view_model/services/translations/itext_provider.dart';
+import 'package:flutter_view_model/services/navigation/iapp_navigator.dart';
+import 'package:flutter_view_model/services/navigation/ibuild_context_provider.dart';
+import 'package:flutter_view_model/services/navigation/inavigator_provider.dart';
 
 /// AppNavigator provides navigation capabilities for a view model
 /// This class should be extendend of app specific pages navigation functions.

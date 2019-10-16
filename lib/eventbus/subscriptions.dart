@@ -1,7 +1,7 @@
-import '../utils/string_utils.dart';
+import 'package:flutter_view_model/utils/string_utils.dart';
 
-import 'subscription.dart';
-import 'subscription_handler.dart';
+import 'package:flutter_view_model/eventbus/subscription.dart';
+import 'package:flutter_view_model/eventbus/subscription_handler.dart';
 
 class Subscriptions<TMessageData> {
   // Properties

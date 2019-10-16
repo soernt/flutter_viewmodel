@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_view_model/flutter_view_model.dart';
-import 'package:test/test.dart';
 
 import 'utils/asyncFunc.dart';
 

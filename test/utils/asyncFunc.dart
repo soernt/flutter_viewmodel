@@ -6,8 +6,8 @@ Future<TResult> waitFor<TResult>(Future<TResult> waitFor, {Duration timeout = co
   return completedFuture;
 }
 
-Future waitForAll(List<Future> waitFors, {Duration timeout = const Duration(microseconds: 100)}) async {
-  for (var future in waitFors) {
+Future waitForAll(List<Future> waitForEach, {Duration timeout = const Duration(microseconds: 100)}) async {
+  for (var future in waitForEach) {
     await waitFor(future);
   }
 }

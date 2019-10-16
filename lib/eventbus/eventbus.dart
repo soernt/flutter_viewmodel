@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'subscription.dart';
-import 'subscription_handler.dart';
-import 'subscriptions.dart';
+import 'package:flutter_view_model/eventbus/subscription.dart';
+import 'package:flutter_view_model/eventbus/subscription_handler.dart';
+import 'package:flutter_view_model/eventbus/subscriptions.dart';
 
 class EventBus {
   // Properties
