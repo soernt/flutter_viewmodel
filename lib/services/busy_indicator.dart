@@ -7,9 +7,9 @@ typedef AsyncAction = Future<void> Function();
 class BusyIndicator {
   // Properties
   final PublishSubject<bool> isBusyStream = PublishSubject<bool>();
-  int _bussyCounter = 0;
+  int _busyCounter = 0;
 
-  bool get isBusy => 0 < _bussyCounter;
+  bool get isBusy => 0 < _busyCounter;
 
   // Methods
   BusyIndicator() {
@@ -19,14 +19,14 @@ class BusyIndicator {
 
   void _setIsBusy(bool isBusy) {
     if (isBusy) {
-      _bussyCounter++;
-      if (_bussyCounter == 1) {
+      _busyCounter++;
+      if (_busyCounter == 1) {
         isBusyStream.add(true);
       }
     } else {
-      if (_bussyCounter != 0) {
-        _bussyCounter--;
-        if (_bussyCounter == 0) {
+      if (_busyCounter != 0) {
+        _busyCounter--;
+        if (_busyCounter == 0) {
           isBusyStream.add(false);
         }
       }
@@ -34,8 +34,8 @@ class BusyIndicator {
   }
 
   void reset() {
-    if (_bussyCounter != 0) {
-      _bussyCounter = 0;
+    if (_busyCounter != 0) {
+      _busyCounter = 0;
       isBusyStream.add(false);
     }
   }
@@ -64,8 +64,7 @@ class BusyAction implements IDisposable {
   final BusyIndicator _owner;
 
   BusyAction(this._owner);
-
-  @override
+  
   void dispose() {
     _owner._actionEnded();
   }
