@@ -7,26 +7,26 @@ import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
 ///  Widget build(BuildContext context) {
 ///    final vm = SplashPageViewModelProvider.of(context); // Get the ViewModel from the Provider.
 ///    ...
-///    return ViewModelPropertyWidgetBuilder(
-///              viewModel: vm,
+///    return PropertyChangedWidgetBuilder(
+///              notificationSource: vm,
 ///              propertyName: "statusText", // A PropertyName
 ///              builder: (context, snapshot) { // the snapshot parameter is ignored, since it don't carry around the actual data.
 ///                return Text(vm.statusText);  // Instead, get the data from the ViewModel.
 ///              }),
 ///  }
-class ViewModelPropertyWidgetBuilder
+class PropertyChangedWidgetBuilder
     extends StreamBuilder<PropertyChangedEvent> {
   // Properties
 
   // Methods
-  ViewModelPropertyWidgetBuilder(
+  PropertyChangedWidgetBuilder(
       {Key key,
-      @required INotifyPropertyChanged viewModel,
+      @required INotifyPropertyChanged notificationSource,
       String propertyName = "",
       @required AsyncWidgetBuilder<PropertyChangedEvent> builder})
       : super(
             key: key,
             builder: builder,
-            stream: viewModel
+            stream: notificationSource
                 .whenPropertyChanged<PropertyChangedEvent>(propertyName));
 }

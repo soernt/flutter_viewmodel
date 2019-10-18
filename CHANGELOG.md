@@ -1,3 +1,6 @@
+## [0.1.19]
+Renamed ViewModelPropertyWidgetBuilder to PropertyChangedWidgetBuilder.
+
 ## [0.1.18]
 Replaced NavigationService with a much simpler one.
 
