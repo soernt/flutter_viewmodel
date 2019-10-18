@@ -1,3 +1,6 @@
+## [0.1.18]
+Replaced NavigationService with a much simpler one.
+
 ## [0.1.17]
 Update dependencies   
 Update flutter SDK   
