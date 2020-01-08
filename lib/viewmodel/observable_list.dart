@@ -47,7 +47,8 @@ class ItemRemovedEvent extends ItemAddedOrRemovedEvent {
 }
 
 /// When ever the list changes a notification is send.
-class ObservableList<E> extends DelegatingList<E> with NotifyPropertyChangedMixin {
+class ObservableList<E> extends DelegatingList<E>
+    with NotifyPropertyChangedMixin {
   // Properties
   /// Property name to indicate that something has been changed;
   static const String itemsChangedPropertyName = "items";

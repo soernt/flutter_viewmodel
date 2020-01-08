@@ -1,3 +1,7 @@
+## [0.1.20]
+Upgrade rxdart to 0.23.1.
+Upgrade rx_command to 5.0.1
+
 ## [0.1.19]
 Renamed ViewModelPropertyWidgetBuilder to PropertyChangedWidgetBuilder.
 

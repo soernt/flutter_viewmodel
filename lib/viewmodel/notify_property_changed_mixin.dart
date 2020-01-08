@@ -12,13 +12,13 @@ typedef SetValue<TValue> = void Function(TValue value);
 typedef Action = void Function();
 
 /// Implementation of the INotifyPropertyChanged and IDisposable interface.
-mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable {
+mixin NotifyPropertyChangedMixin
+    implements INotifyPropertyChanged, IDisposable {
   // Properites
-  
+
   final PublishSubject<PropertyChangedEvent> propertyChanged =
       PublishSubject<PropertyChangedEvent>();
 
-  
   bool isPausingSendNotifications = false;
 
   // Methods
@@ -77,7 +77,7 @@ mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable 
   }
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever the given propertyName indicates a change.
-  Observable<PropertyChangedEvent> whenPropertyChanged<TPropertyType>(
+  Stream<PropertyChangedEvent> whenPropertyChanged<TPropertyType>(
       String propertyName) {
     final propertyNameIsEmpty = isEmpty(propertyName);
     return propertyChanged
@@ -92,7 +92,7 @@ mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable 
   }
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever one of the given propertyNames indicates a change.
-  Observable<PropertyChangedEvent> whenAnyOfPropertiesChanged<TPropertyType>(
+  Stream<PropertyChangedEvent> whenAnyOfPropertiesChanged<TPropertyType>(
       Set<String> propertyNames) {
     assert(propertyNames != null && propertyNames.length != 0);
 
@@ -107,7 +107,7 @@ mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable 
   }
 
   /// Returns an Observale that will receive an PropertyChangedEvent whenever one of the given propertyNames indicates a change.
-  Observable whenPropertyChangedHint<TPropertyType>(String propertyName) {
+  Stream whenPropertyChangedHint<TPropertyType>(String propertyName) {
     final propertyNameIsEmpty = isEmpty(propertyName);
     return propertyChanged
         .where((event) =>
@@ -121,7 +121,7 @@ mixin NotifyPropertyChangedMixin implements INotifyPropertyChanged, IDisposable 
   }
 
   /// Returns an Observale that will receive an PropertyChangedEvent whenever the given propertyNames indicates a change.
-  Observable<void> whenAnyOfPropertiesChangedHint(Set<String> propertyNames) {
+  Stream<void> whenAnyOfPropertiesChangedHint(Set<String> propertyNames) {
     assert(propertyNames != null && propertyNames.length != 0);
 
     return propertyChanged

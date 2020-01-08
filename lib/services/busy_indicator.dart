@@ -64,7 +64,7 @@ class BusyAction implements IDisposable {
   final BusyIndicator _owner;
 
   BusyAction(this._owner);
-  
+
   void dispose() {
     _owner._actionEnded();
   }

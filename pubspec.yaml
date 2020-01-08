@@ -1,6 +1,6 @@
 name: flutter_view_model
 description: A view model framework inspired by Microsofts INotifyPropertyChanged interface.
-version: 0.1.19
+version: 0.1.20
 author: Sörnt Poppe <soernt.poppe@nordlichtsoftware.de>
 homepage: https://github.com/soernt/flutter_viewmodel
 
@@ -11,8 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  rxdart : ^0.22.3
-  rx_command: ^4.3.2+1
+  rxdart : ^0.23.1
+  rx_command: ^5.0.1
+  collection: ^1.14.11
+  meta: ^1.1.8
 
 dev_dependencies:
   flutter_test:

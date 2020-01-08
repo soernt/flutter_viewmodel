@@ -14,8 +14,7 @@ import 'package:flutter_view_model/viewmodel/inotify_property_changed.dart';
 ///                return Text(vm.statusText);  // Instead, get the data from the ViewModel.
 ///              }),
 ///  }
-class PropertyChangedWidgetBuilder
-    extends StreamBuilder<PropertyChangedEvent> {
+class PropertyChangedWidgetBuilder extends StreamBuilder<PropertyChangedEvent> {
   // Properties
 
   // Methods

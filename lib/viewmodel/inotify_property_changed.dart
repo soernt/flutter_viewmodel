@@ -26,17 +26,17 @@ abstract class INotifyPropertyChanged {
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever the given propertyName indicates a change.
   /// When the propertyName is empty (null or length == 0), than the oberservale gets notified by any changes of the ViewModel
-  Observable<PropertyChangedEvent> whenPropertyChanged<TPropertyType>(
+  Stream<PropertyChangedEvent> whenPropertyChanged<TPropertyType>(
       String propertyName);
 
   /// Returns an Observable of PropertyChangedEvent items that will receive an PropertyChangedEvent whenever one of the given propertyNames indicates a change.
-  Observable<PropertyChangedEvent> whenAnyOfPropertiesChanged<TPropertyType>(
+  Stream<PropertyChangedEvent> whenAnyOfPropertiesChanged<TPropertyType>(
       Set<String> propertyNames);
 
   /// Returns an Observale that will receive an PropertyChangedEvent whenever one of the given propertyNames indicates a change.
   /// When the propertyName is empty (null or length == 0), than the oberservale gets notified by any changes of the ViewModel
-  Observable whenPropertyChangedHint<TPropertyType>(String propertyName);
+  Stream whenPropertyChangedHint<TPropertyType>(String propertyName);
 
   /// Returns an Observale that will receive an PropertyChangedEvent whenever the given propertyNames indicates a change.
-  Observable<void> whenAnyOfPropertiesChangedHint(Set<String> propertyNames);
+  Stream<void> whenAnyOfPropertiesChangedHint(Set<String> propertyNames);
 }
