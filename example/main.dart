@@ -39,6 +39,6 @@ class PersonViewModelProvider extends ViewModelProvider<PersonViewModel> {
   PersonViewModelProvider({Key key, @required PersonViewModel viewModel, @required WidgetBuilder childBuilder}) : super(key: key, viewModel: viewModel, childBuilder: childBuilder);
 
   static PersonViewModel of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(PersonViewModelProvider) as PersonViewModelProvider).viewModel;
+    return context.dependOnInheritedWidgetOfExactType<PersonViewModelProvider>().viewModel;
   }
 }
