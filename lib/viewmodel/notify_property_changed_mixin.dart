@@ -36,14 +36,14 @@ mixin NotifyPropertyChangedMixin
       String propertyName,
       TPropertyType currentValue,
       TPropertyType newValue,
-      SetValue<TPropertyType> setNewValue) {
-    assert(setNewValue != null);
-
+      SetValue<TPropertyType> setNewValue,
+      {bool notifyWhenChanged = false}) {
     if (currentValue == newValue) {
       return false;
     }
     setNewValue(newValue);
-    notifyPropertyChanged(propertyName);
+    if (notifyWhenChanged)
+      notifyPropertyChanged(propertyName);
     return true;
   }
 
